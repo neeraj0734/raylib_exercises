@@ -10,7 +10,7 @@ let scHead_posX = 100;
 const scHead_posY = 0;
 const scHead_width = 50;
 const scHead_height = HEIGHT;
-const scHead_colour = r.WHITE;
+let scHead_colour = r.WHITE;
 let scHead_speed = 5;
 
 function running() {
@@ -22,6 +22,11 @@ function setup() {
 }
 function drawScHead() {
     r.DrawRectangle(scHead_posX, scHead_posY, scHead_width, scHead_height, scHead_colour)
+}
+
+function scHeadColor() {
+    const isDetected = math.isOverlap(scHead_posX, scHead_width, pf_posX, pf_width)
+    scHead_colour = isDetected ? r.RED : r.WHITE
 }
 const pf_posX = 400;
 const pf_posY = 0;
@@ -35,6 +40,7 @@ function particleFeild() {
 
 function update() {
     move();
+    scHeadColor();
 }
 
 function move() {
