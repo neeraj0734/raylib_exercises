@@ -20,22 +20,42 @@ function setup() {
     r.InitWindow(WIDTH, HEIGHT, "Scanner");
     r.SetTargetFPS(FPS);
 }
+
+const pf1_posX = 200;
+const pf1_posY = 0;
+const pf1_width = 150;
+const pf1_height = HEIGHT;
+const pf1_colour = r.BLUE;
+
+const pf2_posX = 500;
+const pf2_posY = 0;
+const pf2_width = 40;
+const pf2_height = HEIGHT;
+const pf2_colour = r.BLUE;
+
+const detectPf1 = false;
+const detectPf2 = true;
+
 function drawScHead() {
     r.DrawRectangle(scHead_posX, scHead_posY, scHead_width, scHead_height, scHead_colour)
 }
 
 function scHeadColor() {
-    const isDetected = math.isOverlap(scHead_posX, scHead_width, pf_posX, pf_width)
-    scHead_colour = isDetected ? r.RED : r.WHITE
+    const isDetectedPf1 = math.isOverlap(scHead_posX, scHead_width, pf1_posX, pf1_width)
+    const isDetectedPf2 = math.isOverlap(scHead_posX, scHead_width, pf2_posX, pf2_width)
+
+    if (detectPf1 && detectPf2) {
+        scHead_colour = (isDetectedPf1 || isDetectedPf2) ? r.RED : r.WHITE
+    } else if (detectPf1) {
+        scHead_colour = (isDetectedPf1) ? r.RED : r.WHITE
+    } else if (detectPf2) {
+        scHead_colour = (isDetectedPf2) ? r.RED : r.WHITE
+    }
 }
-const pf_posX = 400;
-const pf_posY = 0;
-const pf_width = 150;
-const pf_height = HEIGHT;
-const pf_colour = r.BLUE;
 
 function particleFeild() {
-    r.DrawRectangle(pf_posX, pf_posY, pf_width, pf_height, pf_colour)
+    r.DrawRectangle(pf1_posX, pf1_posY, pf1_width, pf1_height, pf1_colour)
+    r.DrawRectangle(pf2_posX, pf2_posY, pf2_width, pf2_height, pf2_colour)
 }
 
 function update() {
