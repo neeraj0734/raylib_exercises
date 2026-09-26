@@ -2,8 +2,14 @@ function calcOffset(outer, inner) {
     return (outer - inner) / 2;
 }
 
-function isTouchingWall(wallPoint, objectPoint) {
+function isRWTouching(wallPoint, objectPoint) {
     if (wallPoint <= objectPoint) {
+        return true;
+    }
+    return false;
+}
+function isLWTouching(wallPoint, objectPoint) {
+    if (wallPoint >= objectPoint) {
         return true;
     }
     return false;
@@ -18,6 +24,7 @@ function isOverlap(scHead_posX, scHead_width, pf_posX, pf_width,) {
 
 module.exports = {
     calcOffset,
-    isTouchingWall,
+    isRWTouching,
+    isLWTouching,
     isOverlap,
 } 
