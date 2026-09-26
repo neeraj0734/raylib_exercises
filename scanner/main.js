@@ -1,5 +1,5 @@
 const sketch = require("./sketch");
-const geometry = require("./geometry");
+const math = require("./math");
 
 
 function loop() {
