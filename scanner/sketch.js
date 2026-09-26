@@ -6,8 +6,8 @@ const HEIGHT = 500;
 const FPS = 60;
 
 
-let scHead_PosX = 100;
-const scHead_PosY = 0;
+let scHead_posX = 100;
+const scHead_posY = 0;
 const scHead_width = 50;
 const scHead_height = HEIGHT;
 const scHead_colour = r.WHITE;
@@ -21,7 +21,16 @@ function setup() {
     r.SetTargetFPS(FPS);
 }
 function drawScHead() {
-    r.DrawRectangle(scHead_PosX, scHead_PosY, scHead_width, scHead_height, scHead_colour)
+    r.DrawRectangle(scHead_posX, scHead_posY, scHead_width, scHead_height, scHead_colour)
+}
+const pf_posX = 400;
+const pf_posY = 0;
+const pf_width = 150;
+const pf_height = HEIGHT;
+const pf_colour = r.BLUE;
+
+function particleFeild() {
+    r.DrawRectangle(pf_posX, pf_posY, pf_width, pf_height, pf_colour)
 }
 
 function update() {
@@ -29,18 +38,19 @@ function update() {
 }
 
 function move() {
-    let isTouchingRightWall = math.isTouchingWall(WIDTH, (scHead_PosX + scHead_width))
-    let isTouchingLeftWall = math.isTouchingWall(scHead_PosX, 0)
+    let isTouchingRightWall = math.isTouchingWall(WIDTH, (scHead_posX + scHead_width))
+    let isTouchingLeftWall = math.isTouchingWall(scHead_posX, 0)
     const isTouching = isTouchingLeftWall || isTouchingRightWall
     if (isTouching) {
         scHead_speed *= -1
     }
-    scHead_PosX += scHead_speed;
+    scHead_posX += scHead_speed;
 
 }
 function draw() {
     r.BeginDrawing();
     r.ClearBackground(r.BLACK)
+    particleFeild();
     drawScHead();
     r.EndDrawing();
 }
