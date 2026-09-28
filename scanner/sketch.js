@@ -67,8 +67,8 @@ function isScannerOverLapsHorizontalFields(position, size) {
         pf1.width,
     );
     let scannerOverlapsP2 = math.isOverlapping(
-        start,
-        width,
+        position,
+        size,
         pf2.posX,
         pf2.width,
     );
