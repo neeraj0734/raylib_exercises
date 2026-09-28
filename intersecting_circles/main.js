@@ -1,5 +1,5 @@
 const sketch = require("./sketch");
-const math = require("./math");
+const geometry = require("./geometry");
 
 
 function loop() {
@@ -10,10 +10,7 @@ function loop() {
 }
 
 function main() {
-    const WIDTH = 1200;
-    const HEIGHT = 800;
-    const FPS = 60;
-    sketch.setup(WIDTH, HEIGHT, "Scanner", FPS);
+    sketch.setup();
     loop();
     sketch.teardown();
 }
