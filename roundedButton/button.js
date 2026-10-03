@@ -52,6 +52,7 @@ function getTextCenter(textObj) {
 }
 
 function getIniPointsForText(btn) {
+    const btnCenter = getBtnCenter(btn);
     const iniX = btn.width / 4 + btn.x;
     const iniY = btn.height / 4 + btn.y;
     return {
@@ -72,7 +73,7 @@ function writeTextOnRect(textObj, btn) {
 
     const txtIniPoints = getIniPointsForText(btn);
     console.log(txtIniPoints);
-    
+
     DrawText(
         textObj.text,
         txtIniPoints.x,
