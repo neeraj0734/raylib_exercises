@@ -1,4 +1,4 @@
-const { DrawRectangleRec } = require("raylib");
+const r = require("raylib");
 
 function maxValueInData(data) {
     let max = data[0];
@@ -14,14 +14,12 @@ function calcScaleValue(maxHeight, data) {
     return maxHeight / maxData;
 }
 
-function getBar(bar, colour) {
-    DrawRectangleRec(bar, colour);
+function drawBar(bar, colour) {
+    r.DrawRectangleRec(bar, colour);
 }
-
-
 
 module.exports = {
     maxValueInData,
     calcScaleValue,
-    getBar,
+    drawBar,
 };

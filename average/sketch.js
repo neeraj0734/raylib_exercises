@@ -14,7 +14,6 @@ function setup() {
     const background = { r: 241, g: 241, b: 242, a: 255 };
 
     const bar = {};
-    // const data = [12, 45, 78, 23, 100, 56, 34, 67, 89, 40];
     const data = [
         10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160,
     ];
@@ -45,18 +44,23 @@ function drawBar(world) {
         const width = world.bar.width;
         const height = world.bar.scale * world.data[index];
 
-        b.getBar({ x, y, width, height }, r.BLUE);
+        b.drawBar({ x, y, width, height }, r.BLUE);
         r.DrawText(world.data[index].toString(), x + 5, y + 5, 12, r.WHITE);
     }
 }
 
 function drawAverageLine(w) {
+    const { y1, x2, avg } = getAverageLineInfo(w);
+    r.DrawLine(0, y1, x2, y1, r.RED);
+    r.DrawText(`Average: ${avg.toString()}`, 10, 10, 20, r.BLACK);
+}
+
+function getAverageLineInfo(w) {
     const avg = calcAverage(w.data);
     const headerOffsetHeight = w.headerOffset * w.HEIGHT;
     const y1 = w.bar.maxHeight - w.bar.scale * avg + headerOffsetHeight;
     const x2 = w.WIDTH;
-    r.DrawLine(0, y1, x2, y1, r.RED);
-    r.DrawText(`Average: ${avg.toString()}`, 10, 10, 20, r.BLACK);
+    return { y1, x2, avg };
 }
 
 function update(w) {}
