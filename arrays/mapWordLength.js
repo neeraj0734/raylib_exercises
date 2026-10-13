@@ -1,4 +1,4 @@
-function mapLengths(array) {
+function mapToArray(array) {
     const wordsArray = [];
     for (let index = 0; index < array.length; index++) {
         const element = array[index].length;
@@ -8,4 +8,4 @@ function mapLengths(array) {
 }
 
 const words = ["apple", "cat", "Four"];
-console.log(mapLengths(words));
+console.log(mapToArray(words));
