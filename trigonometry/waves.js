@@ -32,9 +32,17 @@ function drawSinWave(center) {
     let sinX = center.x;
     for (let index = 0; index < 360; index++) {
         sinX += 1;
-        const sinY = center.y + Math.sin(calcRadian(index)) * amplitude;
-        console.log(sinX, sinY);
+        const sinY = center.y + Math.sin(calcRadian(-index)) * amplitude;
         r.DrawCircle(sinX, sinY, 2, r.RED);
+    }
+}
+function drawCosineWave(center) {
+    const amplitude = 100;
+    let cosX = center.x;
+    for (let index = 0; index < 360; index++) {
+        cosX += 1;
+        const cosY = center.y + Math.cos(calcRadian(-index)) * amplitude;
+        r.DrawCircle(cosX, cosY, 2, r.BLUE);
     }
 }
 
@@ -53,6 +61,7 @@ function draw(w) {
     r.ClearBackground(r.BLACK);
 
     drawSinWave(w.origin);
+    drawCosineWave(w.origin);
 
     drawLine(w.hLine);
     drawLine(w.vLine);
