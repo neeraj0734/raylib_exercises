@@ -5,6 +5,10 @@ function setup() {
     const HEIGHT = 400;
     const FPS = 50;
     const origin = { x: 50, y: 200 };
+    const funcPallete = {
+        cos: { func: calculateCosineY, color: r.BLUE },
+        sin: { func: calculateSineY, color: r.RED },
+    };
 
     const hLine = {
         st: origin,
@@ -24,29 +28,29 @@ function setup() {
     r.InitWindow(WIDTH, HEIGHT, "wave");
     r.SetTargetFPS(FPS);
 
-    return { WIDTH, HEIGHT, FPS, origin, hLine, vLine };
+    return { WIDTH, HEIGHT, FPS, origin, hLine, vLine, funcPallete };
 }
 
-function drawSinWave(center) {
-    const amplitude = 100;
-    let sinX = center.x;
-    for (let index = 0; index < 360; index++) {
-        sinX += 1;
-        const sinY = center.y + Math.sin(calcRadian(-index)) * amplitude;
-        r.DrawCircle(sinX, sinY, 2, r.RED);
-    }
+function calculateSineY(center, index, amplitude) {
+    return center.y + Math.sin(degreesToRadians(-index)) * amplitude;
 }
-function drawCosineWave(center) {
-    const amplitude = 100;
-    let cosX = center.x;
+
+function calculateCosineY(center, index, amplitude) {
+    return center.y - Math.cos(degreesToRadians(index)) * amplitude;
+}
+
+function drawTrigonometricWave(funcPallete, center, trignoFunc, amplitude) {
+    let funcX = center.x;
+    const trigonometricFunction = funcPallete[trignoFunc];
+
     for (let index = 0; index < 360; index++) {
-        cosX += 1;
-        const cosY = center.y + Math.cos(calcRadian(-index)) * amplitude;
-        r.DrawCircle(cosX, cosY, 2, r.BLUE);
+        funcX += 1;
+        const funcY = trigonometricFunction.func(center, index, amplitude);
+        r.DrawCircle(funcX, funcY, 2, trigonometricFunction.color);
     }
 }
 
-function calcRadian(angle) {
+function degreesToRadians(angle) {
     return (angle * Math.PI) / 180;
 }
 
@@ -60,8 +64,8 @@ function draw(w) {
     r.BeginDrawing();
     r.ClearBackground(r.BLACK);
 
-    drawSinWave(w.origin);
-    drawCosineWave(w.origin);
+    drawTrigonometricWave(w.funcPallete, w.origin, "sin", 100);
+    drawTrigonometricWave(w.funcPallete, w.origin, "cos", 100);
 
     drawLine(w.hLine);
     drawLine(w.vLine);
