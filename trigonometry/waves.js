@@ -5,9 +5,9 @@ function setup() {
     const HEIGHT = 400;
     const FPS = 50;
     const origin = { x: 50, y: 200 };
-    const funcPallete = {
-        cos: { func: calculateCosineY, color: r.BLUE },
-        sin: { func: calculateSineY, color: r.RED },
+    const waveColorPallete = {
+        cos: { color: r.BLUE },
+        sin: { color: r.RED },
     };
 
     const hLine = {
@@ -28,25 +28,26 @@ function setup() {
     r.InitWindow(WIDTH, HEIGHT, "wave");
     r.SetTargetFPS(FPS);
 
-    return { WIDTH, HEIGHT, FPS, origin, hLine, vLine, funcPallete };
+    return { WIDTH, HEIGHT, FPS, origin, hLine, vLine, waveColorPallete };
 }
 
-function calculateSineY(center, index, amplitude) {
-    return center.y + Math.sin(degreesToRadians(-index)) * amplitude;
+function calculateCoordY(center, index, amplitude, trignoFunc) {
+    return center.y - Math[trignoFunc](degreesToRadians(index)) * amplitude;
 }
 
-function calculateCosineY(center, index, amplitude) {
-    return center.y - Math.cos(degreesToRadians(index)) * amplitude;
-}
-
-function drawTrigonometricWave(funcPallete, center, trignoFunc, amplitude) {
+function drawTrigonometricWave(
+    waveColorPallete,
+    center,
+    trignoFunc,
+    amplitude,
+) {
     let funcX = center.x;
-    const trigonometricFunction = funcPallete[trignoFunc];
+    const waveColor = waveColorPallete[trignoFunc];
 
     for (let index = 0; index < 360; index++) {
         funcX += 1;
-        const funcY = trigonometricFunction.func(center, index, amplitude);
-        r.DrawCircle(funcX, funcY, 2, trigonometricFunction.color);
+        const funcY = calculateCoordY(center, index, amplitude, trignoFunc);
+        r.DrawCircle(funcX, funcY, 2, waveColor.color);
     }
 }
 
@@ -64,8 +65,8 @@ function draw(w) {
     r.BeginDrawing();
     r.ClearBackground(r.BLACK);
 
-    drawTrigonometricWave(w.funcPallete, w.origin, "sin", 100);
-    drawTrigonometricWave(w.funcPallete, w.origin, "cos", 100);
+    drawTrigonometricWave(w.waveColorPallete, w.origin, "sin", 100);
+    drawTrigonometricWave(w.waveColorPallete, w.origin, "cos", 100);
 
     drawLine(w.hLine);
     drawLine(w.vLine);
