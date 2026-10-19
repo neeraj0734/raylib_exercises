@@ -4,16 +4,18 @@ function setup() {
     const WIDTH = 800;
     const HEIGHT = 500;
     const FPS = 10;
-    const point = { center: { x: 100, y: 100 }, radii: 3, color: r.WHITE };
     const rect = { x: 100, y: 100, width: 500, height: 300 };
-    const totalPoints = 100;
+    const totalPoints = 500;
 
     r.SetTraceLogLevel(r.LOG_NONE);
     r.InitWindow(WIDTH, HEIGHT, "Points in Rectangle");
     r.SetTargetFPS(FPS);
 
-    return { WIDTH, HEIGHT, FPS, point, rect, totalPoints };
+    const points = createPoints(totalPoints, rect);
+
+    return { WIDTH, HEIGHT, FPS, points, rect, totalPoints };
 }
+
 function getRectangle(rect, thick, color) {
     r.DrawRectangleLinesEx(rect, thick, color);
 }
@@ -22,7 +24,15 @@ function genRandomNumber(range) {
     return range.start + Math.random() * range.end;
 }
 
-function drawPoints(rect, totalPoints) {
+function drawPoints(points) {
+    const WHITE = { r: 255, g: 255, b: 255, a: 180 };
+    for (const point of points) {
+        r.DrawCircle(point.x, point.y, 10, WHITE);
+    }
+}
+
+function createPoints(totalPoints, rect) {
+    const points = [];
     for (let point = 0; point < totalPoints; point++) {
         const pointX = genRandomNumber({
             start: rect.x,
@@ -32,19 +42,27 @@ function drawPoints(rect, totalPoints) {
             start: rect.y,
             end: rect.height,
         });
-        r.DrawCircle(pointX, pointY, 3, r.WHITE);
+
+        const pointObj = {
+            x: pointX,
+            y: pointY,
+        };
+
+        points.push(pointObj);
     }
+
+    return points;
 }
 
 function update(w) {}
 
 function draw(w) {
     r.BeginDrawing();
-    r.ClearBackground(r.BLACK);
+    r.ClearBackground(r.DARKBLUE);
 
     getRectangle(w.rect, 3, r.WHITE);
 
-    drawPoints(w.rect, w.totalPoints);
+    drawPoints(w.points);
 
     r.EndDrawing();
 }
