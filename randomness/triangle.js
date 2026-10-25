@@ -7,18 +7,28 @@ function setup() {
         FPS: 60,
     };
 
+    const triangle = {
+        vA: { x: 400, y: 100 },
+        vB: { x: 200, y: 500 },
+        vC: { x: 600, y: 500 },
+        color: r.WHITE,
+    };
+
     r.SetTraceLogLevel(r.LOG_NONE);
     r.InitWindow(screen.WIDTH, screen.HEIGHT, "Triangle");
     r.SetTargetFPS(screen.FPS);
 
-    return { screen };
+    return { screen, triangle };
 }
 
 function update(w) {}
 
 function draw(w) {
+    const { vA, vB, vC, color } = w.triangle;
     r.BeginDrawing();
     r.ClearBackground(r.GRAY);
+
+    r.DrawTriangleLines(vA, vB, vC, color);
 
     r.EndDrawing();
 }
